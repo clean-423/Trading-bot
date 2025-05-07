@@ -17,9 +17,10 @@ def use_flahsbots():
     flahsbots=Web3(Web3.HTTPProvider(flashbots_rpc_url))
     ACCOUNT = flahsbots.eth.account.from_key(private_key)
     ADDRESS = ACCOUNT.address
+  
     tx = {
         "from": ADDRESS,
-        "to": "0xReceiverAddressHere",  # Replace this!
+        "to": "0x4D5fA74E995aacf8Dd01fe634BD449be2775d5Db",  # Replace this!
         "value": flahsbots.to_wei(0.01, "ether"),
         "gas": 21000,
         "maxFeePerGas": flahsbots.to_wei(100, "gwei"),
@@ -28,9 +29,11 @@ def use_flahsbots():
         "chainId": 1,  # Ethereum Mainnet
         "type": 2,
     }
+   
     # Sign the transaction
     signed_tx = flahsbots.eth.account.sign_transaction(tx, private_key)
-    tx_hash = flahsbots.eth.send_raw_transaction(signed_tx.rawTransaction)
+    print(f'Sign: {signed_tx} \n')
+    tx_hash = flahsbots.eth.send_raw_transaction(signed_tx)
     print("🔒 Protected TX sent:", tx_hash.hex())
     
 def monitor_mempool():
